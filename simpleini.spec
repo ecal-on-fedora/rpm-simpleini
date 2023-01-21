@@ -21,17 +21,18 @@ BuildRequires: gtest-devel
 A cross-platform library that provides a simple API to read and write INI-style configuration files. It supports data files in ASCII, MBCS and Unicode. It is designed explicitly to be portable to any platform and has been tested
 on Windows, WinCE and Linux. Released as open-source and free using the MIT licence.
 
-%package devel
-Summary: Files for development of applications which will use SimpleIni
-
-%description devel
-Files for development of applications which will use SimpleIni
-
 %package libs
 Summary: SimpleIni library files
 
 %description libs
 SimpleIni library files
+
+%package devel
+Summary: Files for development of applications which will use SimpleIni
+Requires: %{name}-libs
+
+%description devel
+Files for development of applications which will use SimpleIni
 
 %prep
 %forgesetup
@@ -43,7 +44,7 @@ gcc -g -Wall -shared -o libsimpleini.so -fPIC ConvertUTF.c
 mkdir -p %{buildroot}%{_includedir}/simpleini
 mkdir -p %{buildroot}%{_libdir}/simpleini
 install -C -m 644 SimpleIni.h %{buildroot}%{_includedir}/simpleini/SimpleIni.h
-install -C -m 644 ConvertUTF.h %{buildroot}%{_includedir}//simpleini/ConvertUTF.h
+install -C -m 644 ConvertUTF.h %{buildroot}%{_includedir}/simpleini/ConvertUTF.h
 install libsimpleini.so %{buildroot}%{_libdir}/libsimpleini.so
 
 %check
@@ -62,8 +63,8 @@ g++ -o ./tests ts-roundtrip.o ts-snippets.o ts-utf8.o ts-bugfix.o ts-quotes.o ts
 %doc README.md
 
 %files devel
-%{_includedir}/SimpleIni.h
-%{_includedir}/ConvertUTF.h
+%{_includedir}/simpleini/SimpleIni.h
+%{_includedir}/simpleini/ConvertUTF.h
 
 %files libs
 %{_libdir}/libsimpleini.so
