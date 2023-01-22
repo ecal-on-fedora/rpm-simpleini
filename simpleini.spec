@@ -5,7 +5,7 @@ Version: 4.19
 %forgemeta
 
 Name: simpleini
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Read and write INI-style configuration files.
 URL:     %{forgeurl}
 Source:  %{forgesource}
@@ -43,8 +43,8 @@ gcc -g -Wall -shared -o libsimpleini.so -fPIC ConvertUTF.c
 %install
 mkdir -p %{buildroot}%{_includedir}/simpleini
 mkdir -p %{buildroot}%{_libdir}/simpleini
-install -C -m 644 SimpleIni.h %{buildroot}%{_includedir}/simpleini/SimpleIni.h
-install -C -m 644 ConvertUTF.h %{buildroot}%{_includedir}/simpleini/ConvertUTF.h
+install -C -m 644 SimpleIni.h %{buildroot}%{_includedir}/SimpleIni.h
+install -C -m 644 ConvertUTF.h %{buildroot}%{_includedir}/ConvertUTF.h
 install libsimpleini.so %{buildroot}%{_libdir}/libsimpleini.so
 
 %check
@@ -63,12 +63,15 @@ g++ -o ./tests ts-roundtrip.o ts-snippets.o ts-utf8.o ts-bugfix.o ts-quotes.o ts
 %doc README.md
 
 %files devel
-%{_includedir}/simpleini/SimpleIni.h
-%{_includedir}/simpleini/ConvertUTF.h
+%{_includedir}/SimpleIni.h
+%{_includedir}/ConvertUTF.h
 
 %files libs
 %{_libdir}/libsimpleini.so
 
 %changelog
+* Sun Jan 22 2023 Leonardo Rossetti <lrossett@redhat.com> - 0.0.1-2
+- Move header files /usr/include
+
 * Sat Jan 21 2023 Leonardo Rossetti <lrossett@redhat.com> - 0.0.1
 - First version being packaged
